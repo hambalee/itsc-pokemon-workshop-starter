@@ -1,31 +1,24 @@
 <script setup lang="ts">
-import type { PokemonData } from "@/models/pokemon.model";
+const props = defineProps<{ name: string; img: string }>();
 
-const props = defineProps<{ pokemon: PokemonData }>();
-
-const emit = defineEmits<{
-  (e: "clickDetail", name: string): void;
+const emits = defineEmits<{
+  (e: "viewDetail", name: string): void;
 }>();
+
+const onClickViewDetail = (name: string) => emits("viewDetail", name);
 </script>
 
 <template>
   <div class="card w-96 bg-base-100 shadow-xl">
     <figure>
-      <img
-        :src="props.pokemon.img"
-        :alt="props.pokemon.name"
-        width="100"
-        height="100"
-      />
+      <img :src="props.img" alt="Shoes" />
     </figure>
     <div class="card-body">
-      <div class="card-title capitalize text-center">
-        {{ props.pokemon.name }}
-      </div>
+      <h2 class="card-title capitalize">{{ props.name }}</h2>
       <div class="card-actions justify-end">
         <button
           class="btn btn-primary text-white"
-          @click="emit('clickDetail', props.pokemon.name)"
+          @click="onClickViewDetail(props.name)"
         >
           View Detail
         </button>
